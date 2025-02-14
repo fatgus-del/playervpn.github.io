@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbit Proxy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #000000;
+      color: white;
+      text-align: center;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #1a1a1a;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar img {
+      height: 30px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #ff66ff;
+    }
+
+    .search-container {
+      margin-top: 15%;
+    }
+
+    .search-container h1 {
+      font-size: 48px;
+      font-weight: bold;
+      background: linear-gradient(45deg, blue, orange, red, pink, purple);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: colorShift 5s infinite;
+    }
+
+    @keyframes colorShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .search-box {
+      margin-top: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .search-box input {
+      width: 400px;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      outline: none;
+      background-color: #222;
+      color: white;
+    }
+
+    .search-box button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border: none;
+      background: #5500aa;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-box button:hover {
+      background: #9933ff;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px;
+      background-color: #1a1a1a;
+      color: #ff99ff;
+      font-size: 14px;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div><img src="https://i.ibb.co/mCKLf7t6/pfp2.png" alt="Orbit Proxy"></div>
+  <div>
+    <a href="#" onclick="navigate('proxy')">Proxy</a>
+    <a href="#" onclick="navigate('apps')">Apps</a>
+    <a href="#" onclick="navigate('games')">Games</a>
+  </div>
+  <div>
+    <a href="#" onclick="viewHistory()">History</a>
+  </div>
+</div>
+
+<div class="search-container">
+  <h1>Welcome To Orbit Proxy</h1>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search freely">
+    <button onclick="performSearch()">Search</button>
+  </div>
+</div>
+
+<div class="footer">
+  Find any website you want (GeForce Now, and ChatGPT don’t work)
+</div>
+
+<script>
+  function navigate(page) {
+    if (page === 'apps') {
+      window.location.href = 'apps.html';
+    } else if (page === 'games') {
+      window.location.href = 'https://playervpn.github.io';
+    }
+  }
+
+  function performSearch() {
+    const query = document.getElementById('searchInput').value.trim();
+    const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6})([\/\w .-]*)*\/?$/i;
+
+    if (urlPattern.test(query)) {
+      // It's a URL
+      const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
+      window.location.href = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
+    } else {
+      // Perform a Google search
+      const googleSearchUrl = `https://playervpn.github.io/active/embed.html?url=https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      window.location.href = googleSearchUrl;
+    }
+  }
+</script>
+
+</body>
+</html>
