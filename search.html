@@ -1,169 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orbit Proxy</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Proxy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #000000;
-      color: white;
-      text-align: center;
-    }
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            /* Background image added here */
+            background: url('https://i.ibb.co/b51Ch0D6/RBIT-10.png') center/cover no-repeat, radial-gradient(circle, #4b0082, #1e0035);
+            color: white;
+            overflow: hidden;
+        }
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: #1a1a1a;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 100%;
+            background: #1a002a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            gap: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 11;
+        }
 
-    .navbar img {
-      height: 30px;
-    }
+        .sidebar a {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: transform 0.2s, color 0.2s;
+        }
 
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 18px;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
+        .sidebar a:hover {
+            transform: scale(1.2);
+            color: #bb86fc;
+        }
 
-    .navbar a:hover {
-      color: #ff66ff;
-    }
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 70px;
+            right: 0;
+            height: 50px;
+            background: #1a002a;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            border-bottom-left-radius: 20px;
+        }
 
-    .search-container {
-      margin-top: 15%;
-    }
+        .topbar input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            margin-left: 20px;
+        }
 
-    .search-container h1 {
-      font-size: 48px;
-      font-weight: bold;
-      background: linear-gradient(45deg, blue, orange, red, pink, purple);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: colorShift 5s infinite;
-    }
+        .topbar .fa-search {
+            margin-right: 10px;
+            color: #fff;
+        }
 
-    @keyframes colorShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        .main {
+            margin-left: 70px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    .search-box {
-      margin-top: 20px;
-      position: relative;
-      display: inline-block;
-    }
+        /* Added styles for the image above the search bar */
+        .search-area {
+            text-align: center; /* Center the image */
+            margin-bottom: 20px; /* Space between the image and search bar */
+        }
 
-    .search-box input {
-      width: 400px;
-      padding: 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px;
-      outline: none;
-      background-color: #222;
-      color: white;
-    }
+        .search-area img {
+            width: 200px; /* Adjust image width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 10px;
+        }
 
-    .search-box button {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      border: none;
-      background: #5500aa;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 0 25px 25px 0;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+        .search-bar {
+            width: 600px;
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
 
-    .search-box button:hover {
-      background: #9933ff;
-    }
+        .search-bar input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+        }
 
-    .collaboration {
-      margin-top: 10px;
-      font-size: 16px;
-      color: #ff99ff;
-    }
+        .search-bar button {
+            background: #bb86fc;
+            border: none;
+            padding: 0 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
 
-    .footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      padding: 10px;
-      background-color: #1a1a1a;
-      color: #ff99ff;
-      font-size: 14px;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-    }
-  </style>
+        .search-bar button:hover {
+            background: #9a67ea;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .grid a {
+            display: flex;
+            flex-direction: column; /* Stack image and text vertically */
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 100px; /* Increased height */
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px; /* Reduced font size for labels */
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+            padding: 10px; /* Add padding for better spacing */
+        }
+
+        .grid a:hover {
+            transform: scale(1.1);
+            background: #bb86fc;
+        }
+
+        .grid img {
+            width: 50px; /* Adjust image size */
+            height: 50px; /* Adjust image size */
+            margin-bottom: 5px; /* Space between image and text */
+            border-radius: 50%; /* Make images circular */
+        }
+
+
+        iframe {
+            position: fixed;
+            top: 50px; /* Starts under the topbar */
+            left: 70px; /* Starts to the right of the sidebar */
+            width: calc(100% - 70px);
+            height: calc(100% - 50px);
+            border: none;
+            background: white;
+            display: none;
+            z-index: 8;
+            transform: translateY(-5px); /* Adjusted to fit the screen. */
+        }
+
+        iframe.active {
+            display: block;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
 </head>
 <body>
+    <div class="particles">
+        <canvas id="particlesCanvas"></canvas>
+    </div>
 
-<div class="navbar">
-  <div><img src="https://i.ibb.co/mCKLf7t6/pfp2.png" alt="Orbit Proxy"></div>
-  <div>
-    <a href="#" onclick="navigate('proxy')">Proxy</a>
-    <a href="#" onclick="navigate('apps')">Apps</a>
-    <a href="#" onclick="navigate('games')">Games</a>
-  </div>
-  <div>
-    <a href="#" onclick="viewHistory()">History</a>
-  </div>
-</div>
+    <div class="sidebar">
+        <a href="#"><i class="fas fa-home"></i></a>
+        <a href="#"><i class="fas fa-th"></i></a>
+        <a href="#"><i class="fas fa-gamepad"></i></a>
+        <a href="#"><i class="fas fa-cog"></i></a>
+    </div>
 
-<div class="search-container">
-  <h1>Welcome To Orbit Proxy</h1>
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search freely">
-    <button onclick="performSearch()">Search</button>
-  </div>
-  <div class="collaboration">Collaborated with <a href="https://lupinevault.com" target="_blank" style="color: #ff66ff; text-decoration: none;">https://lupinevault.com</a></div>
-</div>
+    <div class="topbar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search or type a URL" id="topSearch" onkeydown="handleSearch(event)">
+    </div>
 
-<div class="footer">
-  Find any website you want (GeForce Now, and ChatGPT don’t work)
-</div>
+    <div class="main">
+        <!-- Image above search bar -->
+        <div class="search-area">
+            <img src="https://i.ibb.co/wFLyrBcq/RBIT-11.png" alt="Search Bar Image">
+        </div>
 
-<script>
-  function navigate(page) {
-    if (page === 'apps') {
-      window.location.href = 'apps.html';
-    } else if (page === 'games') {
-      window.location.href = 'https://playervpn.github.io';
-    }
-  }
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search Google or type a URL">
+            <button onclick="performSearch()">Search</button>
+        </div>
 
-  function performSearch() {
-    const query = document.getElementById('searchInput').value.trim();
-    const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6})([\/\w .-]*)*\/?$/i;
+        <div class="grid">
+            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Cgmoelg.aoo%2F" target="_blank">
+                <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="Google">
+                Google
+            </a>
+            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Cymuvu%60e%2Ccmm-" target="_blank">
+                <img src="https://images.seeklogo.com/logo-png/31/2/youtube-2017-icon-logo-png_seeklogo-316067.png" alt="YouTube">
+                YouTube
+            </a>
+            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-orel.qpmtkf%7B.aoo%2F" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png" alt="Spotify">
+                Spotify
+            </a>
+            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-dksaopd%2Ccmm-" target="_blank">
+                <img src="https://static-00.iconduck.com/assets.00/discord-icon-2048x2048-nnt62s2u.png" alt="Discord">
+                Discord
+            </a>
+            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-gktju%60.aoo%2F" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png" alt="GitHub">
+                GitHub
+            </a>
+            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ctuivcj.vv-" target="_blank">
+                <img src="https://images.seeklogo.com/logo-png/27/2/twitch-logo-png_seeklogo-274042.png" alt="Twitch">
+                Twitch
+            </a>
+        </div>
+    </div>
 
-    if (urlPattern.test(query)) {
-      const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
-      window.location.href = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
-    } else {
-      const googleSearchUrl = `https://playervpn.github.io/active/embed.html?url=https://www.google.com/search?q=${encodeURIComponent(query)}`;
-      window.location.href = googleSearchUrl;
-    }
-  }
-</script>
+    <iframe id="searchFrame"></iframe>
 
+    <script>
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            search(query);
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const query = document.getElementById('topSearch').value.trim();
+                search(query);
+            }
+        }
+
+        function search(query) {
+            const iframe = document.getElementById('searchFrame');
+
+            if (/^(https?:\/\/)?[\w.-]+\.[a-z]{2,6}([\/\w .-]*)*\/?$/i.test(query)) {
+                const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
+                iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
+            } else {
+                iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            }
+
+            iframe.classList.add('active');
+        }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('particlesCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particlesArray = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speed = Math.random() * 1 + 0.5;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(187, 134, 252, 0.8)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 100; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach((particle) => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
 </body>
 </html>
