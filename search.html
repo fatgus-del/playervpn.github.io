@@ -156,11 +156,9 @@
     const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6})([\/\w .-]*)*\/?$/i;
 
     if (urlPattern.test(query)) {
-      // It's a URL
       const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
       window.location.href = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
     } else {
-      // Perform a Google search
       const googleSearchUrl = `https://playervpn.github.io/active/embed.html?url=https://www.google.com/search?q=${encodeURIComponent(query)}`;
       window.location.href = googleSearchUrl;
     }
