@@ -308,6 +308,28 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.7);
         }
+
+        /* History Modal Styles */
+        #historyModal {
+            overflow-y: auto; /* Enable scrolling */
+        }
+
+        #historyList {
+            max-height: 300px; /* Adjust the height as needed */
+            overflow-y: auto; /* Make the history list scrollable */
+            padding: 10px;
+        }
+
+        #historyList div {
+            padding: 8px;
+            border-bottom: 1px solid #330050;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #historyList div:hover {
+            background-color: rgba(187, 134, 252, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -330,6 +352,7 @@
             <i class="fas fa-arrow-left" onclick="goBack()"></i>
             <i class="fas fa-arrow-right" onclick="goForward()"></i>
             <i class="fas fa-redo" onclick="refreshIframe()"></i>
+            <i class="fas fa-history" onclick="openHistory()"></i>
         </div>
     </div>
 
@@ -394,11 +417,22 @@
         </div>
     </div>
 
+    <div id="historyModal" class="settings-modal">
+        <div class="settings-modal-content">
+            <span class="settings-modal-close" onclick="closeHistory()">×</span>
+            <h2>History</h2>
+            <div id="historyList">
+                <!-- History items will be added here -->
+            </div>
+        </div>
+    </div>
+
     <script>
         function loadPage(url) {
             const iframe = document.getElementById('searchFrame');
             iframe.src = url;
             iframe.classList.add('active');
+            addToHistory(url);
         }
 
         function performSearch() {
@@ -424,6 +458,7 @@
             }
 
             iframe.classList.add('active');
+            addToHistory(iframe.src);
         }
 
         function openSettingsModal() {
@@ -496,6 +531,53 @@
         // Forward button functionality
         function goForward() {
             window.history.forward(); // Navigates browser forward
+        }
+
+        // History related functions
+
+        function addToHistory(url) {
+            let history = JSON.parse(localStorage.getItem('orbit_history')) || [];
+            // Remove duplicates - keep the most recent
+            history = history.filter(item => item !== url);
+            history.unshift(url); // Add to the beginning (most recent)
+            // Limit history size to prevent excessive storage usage.
+            history = history.slice(0, 20);
+            localStorage.setItem('orbit_history', JSON.stringify(history));
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = ''; // Clear existing items
+            const history = JSON.parse(localStorage.getItem('orbit_history')) || [];
+
+            history.forEach(url => {
+                const listItem = document.createElement('div');
+                listItem.textContent = url;
+                listItem.style.cursor = 'pointer'; // Indicate clickability
+                listItem.style.padding = '8px';
+                listItem.style.borderBottom = '1px solid #330050';
+
+                listItem.onclick = () => {
+                    const iframe = document.getElementById('searchFrame');
+                    iframe.src = url;
+                    iframe.classList.add('active');
+                    closeHistory();
+                };
+
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function openHistory() {
+            const historyModal = document.getElementById('historyModal');
+            historyModal.style.display = 'block';
+            updateHistoryDisplay(); // Ensure history is up-to-date
+        }
+
+        function closeHistory() {
+            const historyModal = document.getElementById('historyModal');
+            historyModal.style.display = 'none';
         }
     </script>
 
