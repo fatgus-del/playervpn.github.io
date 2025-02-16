@@ -50,6 +50,11 @@
             color: #bb86fc;
         }
 
+        /* Added style for the trophy button */
+        .trophy-button {
+            /* No special style needed; it's just an <a> tag */
+        }
+
         .topbar {
             position: fixed;
             top: 0;
@@ -80,6 +85,25 @@
         .topbar .fa-search {
             margin-right: 10px;
             color: #fff;
+        }
+
+        /* Added style for topbar icons */
+        .topbar-icons {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .topbar-icons i {
+            margin-left: 10px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .topbar-icons i:hover {
+            color: #bb86fc;
         }
 
         .main {
@@ -286,13 +310,19 @@
     <div class="sidebar">
         <a href="#" onclick="loadPage('https://playervpn.github.io/')"><i class="fas fa-home"></i></a>
         <a href="#" onclick="loadPage('https://playervpn.github.io/apps.html')"><i class="fas fa-th"></i></a>
-        <a href="#" onclick="openSettingsModal()"><i class="fas fa-cog"></i></a>
+         <a href="credits.html" target="_blank" class="trophy-button"><i class="fas fa-trophy"></i></a>
         <a href="#" onclick="loadPage('https://playervpn.github.io/')"><i class="fas fa-gamepad"></i></a>
+        <a href="#" onclick="openSettingsModal()"><i class="fas fa-cog"></i></a>
     </div>
 
     <div class="topbar">
         <i class="fas fa-search"></i>
         <input type="text" placeholder="Search or type a URL" id="topSearch" onkeydown="handleSearch(event)">
+        <div class="topbar-icons">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+            <i class="fas fa-arrow-right" onclick="goForward()"></i>
+            <i class="fas fa-redo" onclick="refreshIframe()"></i>
+        </div>
     </div>
 
     <div class="main">
@@ -436,6 +466,24 @@
                     link.parentNode.removeChild(link);
                 }
             }
+        }
+
+        // Refresh the iframe
+        function refreshIframe() {
+            const iframe = document.getElementById('searchFrame');
+            if (iframe) {
+                iframe.src = iframe.src; // Reloads the iframe
+            }
+        }
+
+        // Back button functionality
+        function goBack() {
+            window.history.back(); // Navigates browser back
+        }
+
+        // Forward button functionality
+        function goForward() {
+            window.history.forward(); // Navigates browser forward
         }
     </script>
 
