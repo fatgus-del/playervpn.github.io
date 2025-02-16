@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apps</title>
+    <link rel="shortcut icon" type="image/png" href="meto.png">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
         body {
-            font-family: sans-serif;
-            background-image: url('logobg.png');
-            background-size: cover;
-            background-position: center;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background: url('logobg.png') center/cover no-repeat, radial-gradient(circle, #4b0082, #1e0035);
+            color: white;
+            overflow: hidden;
         }
 
         .container {
             width: 90%;
             max-width: 900px;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            color: #333;
             margin-bottom: 20px;
         }
 
@@ -40,31 +42,37 @@
         }
 
         .app-box {
-            background-color: #fff;
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, background-color 0.2s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
         }
 
         .app-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.1);
+            background-color: #bb86fc; /* A slightly different highlight color */
         }
 
         .app-box img {
-            width: 100%;
-            height: 150px;
+            width: 50px;
+            height: 50px;
             object-fit: cover;
             display: block;
+            margin-bottom: 5px;
+            border-radius: 50%;
         }
 
         .app-box p {
-            padding: 10px;
             margin: 0;
             text-align: center;
             font-weight: 500;
-            color: #333;
         }
 
         @media (max-width: 600px) {
@@ -90,25 +98,26 @@
 
         <div class="app-grid">
             <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-dksaopd%2Ccmm-">
-                <img src="discord.png" alt="App 1">
+                <img src="discord.png" alt="Discord">
                 <p>Discord</p>
             </div>
             <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ctuivcj.vv-">
-                <img src="twitch.png" alt="App 2">
+                <img src="twitch.png" alt="Twitch">
                 <p>Twitch</p>
             </div>
             <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ctkkvoi.aoo%2Fgxrlmrg">
-                <img src="tiktok.png" alt="App 3">
+                <img src="tiktok.png" alt="Tiktok">
                 <p>Tiktok</p>
             </div>
              <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-pna%7B.eedopcgnmw%2Ccmm-mcln%2F">
-                <img src="geforce.png" alt="App 4">
+                <img src="geforce.png" alt="Geforce">
                 <p>Geforce</p>
             </div>
-            <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ccmonmctjgcmgs%2Ccmm-">
-                <img src="cmg.svg" alt="App 5">
+            <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ccmonmctjgcgmn%2Ccmm-">
+                <img src="cmg.svg" alt="CMG">
                 <p>CMG</p>
             </div>
+        </div>
     </div>
 
     <script>
