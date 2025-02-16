@@ -68,6 +68,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             z-index: 10;
             border-bottom-left-radius: 20px;
+            overflow: hidden; /* Ensure the loading bar stays within the topbar */
         }
 
         .topbar input {
@@ -330,6 +331,25 @@
         #historyList div:hover {
             background-color: rgba(187, 134, 252, 0.2);
         }
+
+        /* Loading Bar Styles */
+        .loading-bar-container {
+            position: fixed;
+            top: 50px;
+            left: 70px;
+            width: calc(100% - 70px);
+            height: 2px; /* Adjust height as needed */
+            background-color: #000000; /* Initial background color */
+            z-index: 9;
+            overflow: hidden; /* Hide the loading bar when not active */
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%; /* Initial width */
+            background-color: #64b5f6; /* Blue color */
+            transition: width 0.2s linear; /* Smooth transition */
+        }
     </style>
 </head>
 <body>
@@ -400,6 +420,10 @@
 
     <iframe id="searchFrame"></iframe>
 
+    <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+    </div>
+
     <div class="settings-modal">
         <div class="settings-modal-content">
             <span class="settings-modal-close" onclick="closeSettingsModal()">×</span>
@@ -432,6 +456,10 @@
             const iframe = document.getElementById('searchFrame');
             iframe.src = url;
             iframe.classList.add('active');
+            startLoadingBar();
+            iframe.onload = function() {
+                stopLoadingBar();
+            };
             addToHistory(url);
         }
 
@@ -458,6 +486,10 @@
             }
 
             iframe.classList.add('active');
+            startLoadingBar();
+            iframe.onload = function() {
+                stopLoadingBar();
+            };
             addToHistory(iframe.src);
         }
 
@@ -520,6 +552,10 @@
             const iframe = document.getElementById('searchFrame');
             if (iframe) {
                 iframe.src = iframe.src; // Reloads the iframe
+                startLoadingBar();
+                iframe.onload = function() {
+                    stopLoadingBar();
+                };
             }
         }
 
@@ -562,6 +598,10 @@
                     const iframe = document.getElementById('searchFrame');
                     iframe.src = url;
                     iframe.classList.add('active');
+                    startLoadingBar();
+                    iframe.onload = function() {
+                        stopLoadingBar();
+                    };
                     closeHistory();
                 };
 
@@ -578,6 +618,23 @@
         function closeHistory() {
             const historyModal = document.getElementById('historyModal');
             historyModal.style.display = 'none';
+        }
+
+        // Loading Bar Functions
+        function startLoadingBar() {
+            const loadingBar = document.querySelector('.loading-bar');
+            loadingBar.style.width = '100%'; // Make sure it fills completely
+            loadingBar.style.transition = 'none'; // Disable the transition during reset
+            setTimeout(() => {
+                loadingBar.style.width = '0%'; // Reset width immediately
+                loadingBar.style.transition = 'width 0.2s linear'; // Re-enable transition
+            }, 0);
+
+        }
+
+        function stopLoadingBar() {
+            const loadingBar = document.querySelector('.loading-bar');
+            loadingBar.style.width = '100%'; // Fill the bar
         }
     </script>
 
