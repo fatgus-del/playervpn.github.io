@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url('logobg.png'); /* Replace with your image URL */
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the image */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .app-box {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .app-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-box img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .app-box p {
+            padding: 10px;
+            margin: 0;
+            text-align: center;
+            font-weight: 500;
+            color: #333;
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+            .app-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>My Apps</h1>
+
+        <div class="app-grid">
+            <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-dksaopd%2Ccmm-">
+                <img src="discord.png" alt="App 1">
+                <p>Discord</p>
+            </div>
+            <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ctuivcj.vv-">
+                <img src="twitch.png" alt="App 2">
+                <p>Twitch</p>
+            </div>
+            <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ctkkvoi.aoo%2Fgxrlmrg">
+                <img src="tiktok.png" alt="App 3">
+                <p>Tiktok</p>
+            </div>
+             <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-pna%7B.eedopcgnmw%2Ccmm-mcln%2F">
+                <img src="geforce.png" alt="App 4">
+                <p>Geforce</p>
+            </div>
+            <div class="app-box" data-url="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ccmonmctjgcmgs%2Ccmm-">
+                <img src="cmg.svg" alt="App 5">
+                <p>CMG</p>
+            </div>
+    </div>
+
+    <script>
+        const appBoxes = document.querySelectorAll('.app-box');
+
+        appBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                const appURL = box.dataset.url;
+                if (appURL) {
+                    window.location.href = appURL;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
