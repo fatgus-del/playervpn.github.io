@@ -50,9 +50,7 @@
             color: #bb86fc;
         }
 
-        /* Added style for the trophy button */
         .trophy-button {
-            /* No special style needed; it's just an <a> tag */
         }
 
         .topbar {
@@ -68,7 +66,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             z-index: 10;
             border-bottom-left-radius: 20px;
-            overflow: hidden; /* Ensure the loading bar stays within the topbar */
+            overflow: hidden;
         }
 
         .topbar input {
@@ -88,7 +86,165 @@
             color: #fff;
         }
 
-        /* Added style for topbar icons */
+        .topbar-icons {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .topbar-icons i {
+            margin-left: 10px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .topbar-icons i:hover {
+            color: #bb86fc;
+        }
+
+        .main {
+            margin-left: 70px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .search-area {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-area img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            width: 600px;
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+        }
+
+        .search-bar button {
+            background: #bb86fc;
+            border: none;
+            padding: 0 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #9a67ea;
+        }
+
+<link rel="shortcut icon" type="image/png" href="meto.png">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Proxy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('logobg.png') center/cover no-repeat, radial-gradient(circle, #4b0082, #1e0035);
+            color: white;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 100%;
+            background: #1a002a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            gap: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 11;
+        }
+
+        .sidebar a {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: transform 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: auto;
+        }
+
+        .sidebar a:hover {
+            transform: scale(1.2);
+            color: #bb86fc;
+        }
+
+        .trophy-button {
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 70px;
+            right: 0;
+            height: 50px;
+            background: #1a002a;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            border-bottom-left-radius: 20px;
+            overflow: hidden;
+        }
+
+        .topbar input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .topbar .fa-search {
+            margin-right: 10px;
+            color: #fff;
+        }
+
         .topbar-icons {
             display: flex;
             align-items: center;
@@ -206,8 +362,6 @@
             background: white;
             display: none;
             z-index: 8;
-            /* Remove or adjust this transform */
-            /* transform: translateY(-5px); */
         }
 
         iframe.active {
@@ -228,7 +382,6 @@
             display: block;
         }
 
-        /* Settings Modal Styles */
         .settings-modal {
             position: fixed;
             top: 0;
@@ -292,7 +445,6 @@
             background-color: #9a67ea;
         }
 
-        /* Close Button for the Modal */
         .settings-modal-close {
             position: absolute;
             top: 10px;
@@ -302,7 +454,6 @@
             cursor: pointer;
         }
 
-        /* Credit Style */
         .credit {
             font-size: 14px;
             margin-top: 10px;
@@ -310,14 +461,13 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* History Modal Styles */
         #historyModal {
-            overflow-y: auto; /* Enable scrolling */
+            overflow-y: auto;
         }
 
         #historyList {
-            max-height: 300px; /* Adjust the height as needed */
-            overflow-y: auto; /* Make the history list scrollable */
+            max-height: 300px;
+            overflow-y: auto;
             padding: 10px;
         }
 
@@ -332,23 +482,22 @@
             background-color: rgba(187, 134, 252, 0.2);
         }
 
-        /* Loading Bar Styles */
         .loading-bar-container {
             position: fixed;
             top: 50px;
             left: 70px;
             width: calc(100% - 70px);
-            height: 2px; /* Adjust height as needed */
-            background-color: #000000; /* Initial background color */
+            height: 2px;
+            background-color: #000000;
             z-index: 9;
-            overflow: hidden; /* Hide the loading bar when not active */
+            overflow: hidden;
         }
 
         .loading-bar {
             height: 100%;
-            width: 0%; /* Initial width */
-            background-color: #64b5f6; /* Blue color */
-            transition: width 0.2s linear; /* Smooth transition */
+            width: 0%;
+            background-color: #64b5f6;
+            transition: width 0.2s linear;
         }
     </style>
 </head>
@@ -358,10 +507,11 @@
     </div>
 
     <div class="sidebar">
-        <a href="#" onclick="loadPage('https://playervpn.github.io/')"><i class="fas fa-home"></i></a>
-        <a href="#" onclick="loadPage('https://playervpn.github.io/apps.html')"><i class="fas fa-th"></i></a>
+        <a href="#" onclick="loadPage('index.html')"><i class="fas fa-home"></i></a>
+        <a href="#" onclick="loadPage('apps.html')"><i class="fas fa-th"></i></a>
          <a href="credits.html" target="_blank" class="trophy-button"><i class="fas fa-trophy"></i></a>
-        <a href="#" onclick="loadPage('https://playervpn.github.io/active/embed.html?url=https://playervpn.github.io/movies')"><i class="fas fa-tv"></i></a>
+        <a href="#" onclick="loadPage('/active/embed.html?url=https://playervpn.github.io/movies')"><i class="fas fa-tv"></i></a>
+        <a href="#" onclick="loadPage('ai.html')"><i class="fas fa-robot"></i></a>
         <a href="#" onclick="openSettingsModal()"><i class="fas fa-cog"></i></a>
     </div>
 
@@ -436,7 +586,6 @@
                 <option value="desmos">Desmos</option>
                 <option value="google">Google</option>
                 <option value="google drive">Google Drive</option>
-                <!-- Add more options here -->
             </select>
         </div>
     </div>
@@ -446,7 +595,6 @@
             <span class="settings-modal-close" onclick="closeHistory()">×</span>
             <h2>History</h2>
             <div id="historyList">
-                <!-- History items will be added here -->
             </div>
         </div>
     </div>
@@ -539,7 +687,6 @@
                 link.href = favicon;
                 document.getElementsByTagName('head')[0].appendChild(link);
             } else {
-                // Reset favicon if no tab is selected
                 let link = document.querySelector("link[rel*='icon']");
                 if (link) {
                     link.parentNode.removeChild(link);
@@ -547,11 +694,10 @@
             }
         }
 
-        // Refresh the iframe
         function refreshIframe() {
             const iframe = document.getElementById('searchFrame');
             if (iframe) {
-                iframe.src = iframe.src; // Reloads the iframe
+                iframe.src = iframe.src;
                 startLoadingBar();
                 iframe.onload = function() {
                     stopLoadingBar();
@@ -559,24 +705,18 @@
             }
         }
 
-        // Back button functionality
         function goBack() {
-            window.history.back(); // Navigates browser back
+            window.history.back();
         }
 
-        // Forward button functionality
         function goForward() {
-            window.history.forward(); // Navigates browser forward
+            window.history.forward();
         }
-
-        // History related functions
 
         function addToHistory(url) {
             let history = JSON.parse(localStorage.getItem('orbit_history')) || [];
-            // Remove duplicates - keep the most recent
             history = history.filter(item => item !== url);
-            history.unshift(url); // Add to the beginning (most recent)
-            // Limit history size to prevent excessive storage usage.
+            history.unshift(url);
             history = history.slice(0, 20);
             localStorage.setItem('orbit_history', JSON.stringify(history));
             updateHistoryDisplay();
@@ -584,13 +724,13 @@
 
         function updateHistoryDisplay() {
             const historyList = document.getElementById('historyList');
-            historyList.innerHTML = ''; // Clear existing items
+            historyList.innerHTML = '';
             const history = JSON.parse(localStorage.getItem('orbit_history')) || [];
 
             history.forEach(url => {
                 const listItem = document.createElement('div');
                 listItem.textContent = url;
-                listItem.style.cursor = 'pointer'; // Indicate clickability
+                listItem.style.cursor = 'pointer';
                 listItem.style.padding = '8px';
                 listItem.style.borderBottom = '1px solid #330050';
 
@@ -612,7 +752,7 @@
         function openHistory() {
             const historyModal = document.getElementById('historyModal');
             historyModal.style.display = 'block';
-            updateHistoryDisplay(); // Ensure history is up-to-date
+            updateHistoryDisplay();
         }
 
         function closeHistory() {
@@ -620,21 +760,20 @@
             historyModal.style.display = 'none';
         }
 
-        // Loading Bar Functions
         function startLoadingBar() {
             const loadingBar = document.querySelector('.loading-bar');
-            loadingBar.style.width = '100%'; // Make sure it fills completely
-            loadingBar.style.transition = 'none'; // Disable the transition during reset
+            loadingBar.style.width = '100%';
+            loadingBar.style.transition = 'none';
             setTimeout(() => {
-                loadingBar.style.width = '0%'; // Reset width immediately
-                loadingBar.style.transition = 'width 0.2s linear'; // Re-enable transition
+                loadingBar.style.width = '0%';
+                loadingBar.style.transition = 'width 0.2s linear';
             }, 0);
 
         }
 
         function stopLoadingBar() {
             const loadingBar = document.querySelector('.loading-bar');
-            loadingBar.style.width = '100%'; // Fill the bar
+            loadingBar.style.width = '100%';
         }
     </script>
 
@@ -683,6 +822,17 @@
                 particle.draw();
             });
             requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
+        animate();
+    </script>
+</body>
+</html>
         }
 
         init();
