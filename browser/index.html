@@ -435,8 +435,7 @@
               });
             } else {
               // no url = search
-              var searchUrl =
-                "https://duckduckgo.com/?q=" + encodeURIComponent(url);
+              var searchUrl = "browser/active/embed.html?url=https://duckduckgo.com/?q=" + encodeURIComponent(url);
               window.navigator.serviceWorker
                 .register("sw.js", {
                   scope: __uv$config.prefix,
