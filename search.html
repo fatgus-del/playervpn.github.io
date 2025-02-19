@@ -630,7 +630,7 @@
                 const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
                 iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
             } else {
-                iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
             }
 
             iframe.classList.add('active');
