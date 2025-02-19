@@ -26,7 +26,7 @@
 
 
 ### Check out our other projects!
-VIEW OUR NGG BYPASS AT: <a href="https://orbit-ngg.onrender.com" target="_blank">here</a>
+VIEW OUR PR0X7 AT: <a href="https://playervpn.github.io/search" target="_blank">here</a>
 
 
 ### 🙌 Contributors  
