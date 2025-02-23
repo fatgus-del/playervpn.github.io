@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Home Base</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #2c2e8a, #3d1180);
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #caa7ff;
+            text-shadow: 0 0 20px #caa7ff, 0 0 40px #bb78ff;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #d3b8ff;
+            text-shadow: 0 0 10px #d3b8ff;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            background-color: #7c4dff;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(124, 77, 255, 0.8);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .button i {
+            margin-right: 0.5rem;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(124, 77, 255, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Orbit.</h1>
+        <p>Welcome to home base!</p>
+        <a href="select.html" class="button">
+            <i class="fas fa-rocket"></i> Launch
+        </a>
+    </div>
+</body>
+</html>
