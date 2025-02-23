@@ -11,7 +11,8 @@
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #2b1055, #7597de), url('https://i.ibb.co/HLH4yWfr/bgg.png"') no-repeat center center/cover;
+            background: url('bgg.png') no-repeat center center/cover, 
+                        linear-gradient(135deg, #2b1055, #7597de);
             color: white;
             height: 100vh;
             display: flex;
@@ -21,7 +22,7 @@
             position: relative;
         }
 
-        /* Dim the background image with an overlay */
+        /* Stronger dimming effect with a darker overlay */
         body::before {
             content: "";
             position: absolute;
@@ -29,7 +30,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* Adjust transparency */
+            background: rgba(0, 0, 0, 0.7); /* Darker overlay (more dimming) */
             z-index: 1;
         }
 
