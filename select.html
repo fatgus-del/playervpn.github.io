@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Launch Pad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2b1055, #7597de);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            color: #d2b3ff;
+            text-shadow: 0 0 20px rgba(210, 179, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #c9a8f8;
+        }
+
+        .icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .icon {
+            background: linear-gradient(135deg, #1e0836, #7a3dd0);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(122, 61, 208, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(122, 61, 208, 0.8);
+        }
+
+        .icon i {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .link {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #9c86df;
+            text-decoration: none;
+            border: 1px solid #9c86df;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            background: #9c86df;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 1s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Orbit. <span style="font-size: 1rem;">v1.2.4</span></h1>
+        <p class="subtitle">Select your destination</p>
+        <div class="icons">
+            <a href="search.html" class="icon">
+                <i class="fas fa-globe"></i>
+            </a>
+            <a href="movies.html" class="icon">
+                <i class="fas fa-film"></i>
+            </a>
+            <a href="tv.html" class="icon">
+                <i class="fas fa-tv"></i>
+            </a>
+            <a href="apps.html" class="icon">
+                <i class="fas fa-th-large"></i>
+            </a>
+            <a href="games.html" class="icon">
+                <i class="fas fa-gamepad"></i>
+            </a>
+        </div>
+        <a href="https://playervpn.github.io" class="link">playervpn.github.io</a>
+    </div>
+</body>
+</html>
