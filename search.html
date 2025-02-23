@@ -157,165 +157,6 @@
             background: #9a67ea;
         }
 
-<link rel="shortcut icon" type="image/png" href="meto.png">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbit Proxy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: url('logobg.png') center/cover no-repeat, radial-gradient(circle, #4b0082, #1e0035);
-            color: white;
-            overflow: hidden;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 70px;
-            height: 100%;
-            background: #1a002a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-            gap: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-            z-index: 11;
-        }
-
-        .sidebar a {
-            color: white;
-            font-size: 20px;
-            text-decoration: none;
-            transition: transform 0.2s, color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: auto;
-        }
-
-        .sidebar a:hover {
-            transform: scale(1.2);
-            color: #bb86fc;
-        }
-
-        .trophy-button {
-        }
-
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 70px;
-            right: 0;
-            height: 50px;
-            background: #1a002a;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            border-bottom-left-radius: 20px;
-            overflow: hidden;
-        }
-
-        .topbar input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 20px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
-            margin-left: 20px;
-        }
-
-        .topbar .fa-search {
-            margin-right: 10px;
-            color: #fff;
-        }
-
-        .topbar-icons {
-            display: flex;
-            align-items: center;
-            margin-left: 10px;
-        }
-
-        .topbar-icons i {
-            margin-left: 10px;
-            font-size: 18px;
-            color: white;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .topbar-icons i:hover {
-            color: #bb86fc;
-        }
-
-        .main {
-            margin-left: 70px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .search-area {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .search-area img {
-            width: 200px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .search-bar {
-            width: 600px;
-            position: relative;
-            display: flex;
-            gap: 10px;
-        }
-
-        .search-bar input {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 18px;
-        }
-
-        .search-bar button {
-            background: #bb86fc;
-            border: none;
-            padding: 0 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            color: white;
-            font-size: 18px;
-            transition: background 0.3s;
-        }
-
-        .search-bar button:hover {
-            background: #9a67ea;
-        }
-
         .grid {
             display: flex;
             flex-wrap: wrap;
@@ -509,10 +350,11 @@
     <div class="sidebar">
         <a href="#" onclick="loadPage('index.html')"><i class="fas fa-home"></i></a>
         <a href="#" onclick="loadPage('apps.html')"><i class="fas fa-th"></i></a>
-         <a href="credits.html" target="_blank" class="trophy-button"><i class="fas fa-trophy"></i></a>
+        <a href="credits.html" target="_blank" class="trophy-button"><i class="fas fa-trophy"></i></a>
         <a href="#" onclick="loadPage('/active/embed.html?url=https://playervpn.github.io/movies')"><i class="fas fa-tv"></i></a>
         <a href="#" onclick="loadPage('ai.html')"><i class="fas fa-robot"></i></a>
         <a href="#" onclick="openSettingsModal()"><i class="fas fa-cog"></i></a>
+        <a href="#" onclick="loadPage('https://playervpn.github.io/active/embed.html?url=https://playervpn.github.io/shows')"><i class="fas fa-eye"></i></a> <!-- Eye Icon -->
     </div>
 
     <div class="topbar">
@@ -822,17 +664,6 @@
                 particle.draw();
             });
             requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-    </script>
-</body>
-</html>
-        animate();
-    </script>
-</body>
-</html>
         }
 
         init();
