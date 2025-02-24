@@ -1,6 +1,6 @@
 self.__uv$config = {
     prefix: '/active/go/',
-    bare:'https://englishwork4school.mka.in/bare/',
+    bare:'https://poof.t413.com/bare/',
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
     handler: '/active/uv/uv.handler.js',
