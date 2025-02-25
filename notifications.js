@@ -1,6 +1,3 @@
-// Existing JavaScript logic...
-
-// Request Permission for Notifications
 function requestNotificationPermission() {
   if (Notification.permission === 'default') {
     Notification.requestPermission().then(permission => {
@@ -13,12 +10,9 @@ function requestNotificationPermission() {
   }
 }
 
-// Call this on page load
 window.onload = function() {
-  // Request notification permission
   requestNotificationPermission();
   
-  // Handle tab visibility changes
   document.addEventListener("visibilitychange", function() {
     if (document.hidden) {
       showNotification("PlayerVPN Games", "all the games you want...");
@@ -32,11 +26,11 @@ function showNotification(title, body) {
   if (Notification.permission === 'granted') {
     const notification = new Notification(title, {
       body: body,
-      icon: 'https://i.ibb.co/N75vkX7/PVPN.png' // URL to an icon
+      icon: 'https://i.ibb.co/N75vkX7/PVPN.png'
     });
 
     notification.onclick = function() {
-      window.focus();  // Bring the tab into focus when the notification is clicked
+      window.focus();  
     };
   }
 }
