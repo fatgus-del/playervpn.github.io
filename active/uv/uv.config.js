@@ -1,6 +1,6 @@
 self.__uv$config = {
     prefix: '/active/go/',
-    bare:'https://ly.rchamberlinwoodworking.com/bare/',
+    bare:'https://cold.devmon.ru/bare/',
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
     handler: '/active/uv/uv.handler.js',
