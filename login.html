@@ -141,26 +141,21 @@
   <div class="footer">© 2024-2025 Orbit Systems</div>
 
   <script>
-    // Check if the user is already logged in
     if (localStorage.getItem('isLoggedIn') === 'true') {
-      // Redirect to index.html immediately
+      
       window.location.href = 'games.html';
     }
 
-    // Function to handle login
     document.getElementById('submit').addEventListener('click', () => {
       const password = document.getElementById('password').value;
       if (password === 'Orbit') {
-        // Set login state in localStorage
         localStorage.setItem('isLoggedIn', 'true');
-        // Redirect to index.html
         window.location.href = 'games.html';
       } else {
         alert('Incorrect password. Please try again.');
       }
     });
 
-    // Generate stars for the background
     const starsContainer = document.querySelector('.stars');
     for (let i = 0; i < 150; i++) {
       const star = document.createElement('div');
