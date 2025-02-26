@@ -1,0 +1,493 @@
+<link rel="shortcut icon" type="image/png" href="https://1000logos.net/wp-content/uploads/2017/05/Netflix-Logo-2006.png">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NETFLIX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #141414;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0; 
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center; 
+            padding: 15px 50px;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 150px; 
+        }
+
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 50px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%; 
+            background: linear-gradient(to top, rgba(20, 20, 20, 1), rgba(20, 20, 20, 0)); 
+            z-index: 1; 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10; 
+            max-width: 500px;
+        }
+
+        .hero-content h1 {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .hero-buttons {
+            margin-top: 20px;
+        }
+
+        .play-button,
+        .info-button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            border: 1px solid red;
+            background-color: transparent;
+            color: red;
+        }
+
+        .play-button:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .info-button:hover {
+            background-color: gray;
+            color: white;
+        }
+
+        .movie-section {
+            margin: 20px;
+            position: relative;
+        }
+
+        .movie-section h2 {
+            margin-left: 20px;
+        }
+
+        .movie-row {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .movie-card {
+            position: relative;
+            min-width: 200px;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+
+        .movie-title {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 3px 6px;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Search page styles */
+        .search-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #141414;
+            z-index: 1000;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            max-height: 100%; /* Prevent overflow */
+        }
+
+        .search-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            flex: 1;
+            background-color: #333;
+            color: white;
+        }
+
+        .close-search {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .close-search:hover {
+            background-color: darkred; 
+        }
+
+        .search-results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-height: 70vh;
+            overflow-y: auto; 
+        }
+
+        .search-card {
+            background-color: #222;
+            border-radius: 5px;
+            padding: 10px;
+            flex: 1 1 200px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .search-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .search-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #141414;
+            z-index: 1000;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .movie-page img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+        }
+
+        .movie-page .title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .movie-page .play-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .movie-page .play-btn button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: red;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .movie-page .play-btn button:hover {
+            background: darkred;
+        }
+
+        .movie-page .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5);
+            transition: background 0.3s, transform 0.3s;
+            z-index: 2000;
+        }
+
+        .movie-page .close-btn:hover {
+            background: rgba(255, 0, 0, 1);
+            transform: scale(1.1);
+        }
+
+        .movie-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 500;
+        }
+
+        .movie-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bgAudio" src="meteor.wav" autoplay loop></audio>
+    <header>
+        <div class="navbar">
+            <img src="netflix.png" alt="Orbit TV Logo" class="logo">
+        </div>
+    </header>
+
+    <div class="hero" id="hero-banner">
+        <div class="hero-content">
+            <h1 id="hero-title">Loading...</h1>
+            <p id="hero-desc">Please wait...</p>
+            <div class="hero-buttons">
+                <button class="play-button">▶ Play</button>
+                <button class="info-button" onclick="openSearchPage()">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="movie-section">
+        <h2>Popular on Netflix</h2>
+        <div class="movie-row" id="popular-movies"></div>
+    </section>
+
+    <section class="movie-section">
+        <h2>Trending Now</h2>
+        <div class="movie-row" id="trending-movies"></div>
+    </section>
+
+    <div class="search-page" id="searchPage">
+        <h1 class="search-title">Search Movies</h1>
+        <div class="search-bar">
+            <input type="text" id="searchBar" placeholder="Search for movies...">
+            <button class="close-search" onclick="closeSearchPage()">Back</button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="movie-page" id="moviePage">
+        <button class="close-btn" id="closeMoviePage" onclick="closeMoviePage()"><i class="fas fa-arrow-left"></i></button>
+        <img id="movieImage" src="" alt="Movie">
+        <div class="title" id="movieTitle"></div>
+        <div class="play-btn">
+            <button id="playMovieButton"><i class="fas fa-play"></i> Play</button>
+        </div>
+        <div class="movie-player" id="moviePlayer" style="display: none;">
+            <iframe id="movieIframe" src=""></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Peter Griffon and Orbit TV. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const API_KEY = '2713804610e1e236b1cf44bfac3a7776'; 
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+
+        let currentMovieId;
+
+        async function fetchMovies(endpoint, containerId) {
+            const res = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}`);
+            const data = await res.json();
+            displayMovies(data.results, containerId);
+        }
+
+        function displayMovies(movies, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            movies.forEach(movie => {
+                if (movie.poster_path) {
+                    const movieCard = document.createElement('div');
+                    movieCard.classList.add('movie-card');
+                    movieCard.onclick = () => openMoviePage(movie.id, movie.title, movie.poster_path);
+                    movieCard.innerHTML = `
+                        <img src="${IMG_URL}${movie.poster_path}" alt="${movie.title}">
+                        <div class="movie-title">${movie.title}</div>
+                    `;
+                    container.appendChild(movieCard);
+                }
+            });
+        }
+
+        async function loadHeroMovie() {
+            const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+            const data = await res.json();
+            const movie = data.results[0];
+            document.getElementById('hero-banner').style.backgroundImage = `url(${IMG_URL}${movie.backdrop_path})`;
+            document.getElementById('hero-title').textContent = movie.title;
+            document.getElementById('hero-desc').textContent = movie.overview;
+        }
+
+        async function fetchMoviesForSearch(query) {
+            const res = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+            const data = await res.json();
+            displaySearchResults(data.results);
+        }
+
+        function displaySearchResults(movies) {
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+            movies.forEach(movie => {
+                if (movie.poster_path) {
+                    const movieCard = document.createElement('div');
+                    movieCard.classList.add('search-card');
+                    movieCard.onclick = () => openMoviePage(movie.id, movie.title, movie.poster_path);
+                    movieCard.innerHTML = `
+                        <img src="${IMG_URL}${movie.poster_path}" alt="${movie.title}">
+                        <div class="movie-title">${movie.title}</div>
+                    `;
+                    resultsContainer.appendChild(movieCard);
+                }
+            });
+        }
+
+        function openMoviePage(movieId, title, posterPath) {
+            document.getElementById('bgAudio').pause();
+            currentMovieId = movieId;
+            document.getElementById('movieImage').src = `${IMG_URL}${posterPath}`;
+            document.getElementById('movieTitle').textContent = title;
+            document.getElementById('moviePage').style.display = 'block';
+            document.getElementById('moviePlayer').style.display = 'none'; 
+        }
+
+        document.getElementById('closeMoviePage').addEventListener("click", () => {
+            document.getElementById('bgAudio').play();
+            document.getElementById('moviePage').style.display = 'none';
+            document.getElementById('moviePlayer').style.display = 'none';
+            document.getElementById('movieIframe').src = "";
+            currentMovieId = null;
+        });
+
+        document.getElementById('playMovieButton').addEventListener("click", () => {
+            if (currentMovieId) {
+                document.getElementById('moviePlayer').style.display = "block";
+                document.getElementById('movieIframe').src = `https://vidsrc.su/embed/movie/${currentMovieId}`;
+            }
+        });
+
+        function openSearchPage() {
+            document.getElementById('searchPage').style.display = 'block';
+            document.getElementById('bgAudio').pause();
+        }
+
+        function closeSearchPage() {
+            document.getElementById('searchPage').style.display = 'none';
+            document.getElementById('bgAudio').play();
+        }
+
+        document.getElementById('searchBar').addEventListener('input', (e) => {
+            const query = e.target.value;
+            if (query) {
+                fetchMoviesForSearch(query);
+            } else {
+                document.getElementById('searchResults').innerHTML = ''; 
+            }
+        });
+
+        loadHeroMovie();
+        fetchMovies('/movie/popular', 'popular-movies');
+        fetchMovies('/trending/movie/day', 'trending-movies');
+    </script>
+</body>
+
+</html>
