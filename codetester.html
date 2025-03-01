@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORBIT CODING</title>
+  <title>VS Code Clone</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
@@ -149,6 +149,58 @@
       height: 200px;
       object-fit: cover;
     }
+    /* New AI button style */
+    .ai-button {
+      background-color: #24292f;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .ai-button:hover {
+      background-color: #2c3138;
+    }
+    .ai-button i {
+      margin-right: 10px;
+    }
+
+    /* AI Chatbot iframe container */
+    .ai-chatbot-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 375px;
+      height: 667px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    .ai-chatbot-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .ai-chatbot-container .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -157,8 +209,10 @@
     <button id="upload-file"><i class="fas fa-upload"></i> Upload File</button>
     <button id="upload-image"><i class="fas fa-image"></i> Upload Image</button>
     <div class="files" id="files">
-      
+      <!-- Files will be listed here -->
     </div>
+    <!-- New AI Button -->
+    <button class="ai-button" id="ai-button"><i class="fas fa-robot"></i> AI</button>
     <button id="download-all"><i class="fas fa-download"></i> Download All Files</button>
   </div>
 
@@ -171,12 +225,28 @@
     </div>
   </div>
 
-  <div class="search-bar" id="search-bar">
-    <input type="text" id="folder-name" placeholder="Enter folder name...">
-    <button id="create-folder">Create Folder</button>
+  <!-- AI Chatbot Iframe -->
+  <div class="ai-chatbot-container" id="ai-chatbot-container">
+    <button class="close-btn" id="close-chatbot">X</button>
+    <iframe src="https://playervpn.github.io/chatbot/ai-coder"></iframe>
   </div>
 
   <script>
+    const aiButton = document.getElementById('ai-button');
+    const aiChatbotContainer = document.getElementById('ai-chatbot-container');
+    const closeChatbotButton = document.getElementById('close-chatbot');
+
+    // Toggle the AI chatbot iframe visibility
+    aiButton.addEventListener('click', () => {
+      aiChatbotContainer.style.display = 'block';
+    });
+
+    // Close the AI chatbot iframe
+    closeChatbotButton.addEventListener('click', () => {
+      aiChatbotContainer.style.display = 'none';
+    });
+
+    // File management and other features remain as before...
     const files = [];
     const filesDiv = document.getElementById('files');
     const codeEditor = document.getElementById('code');
@@ -188,6 +258,7 @@
     const imageUploadButton = document.getElementById('upload-image');
     let isResizing = false;
 
+    // Add a new file
     document.getElementById('new-file').addEventListener('click', () => {
       const fileName = prompt('File name (e.g., index.html, script.js):', 'index.html');
       if (fileName) {
@@ -201,6 +272,7 @@
       }
     });
 
+    // Upload a file
     document.getElementById('upload-file').addEventListener('click', () => {
       const input = document.createElement('input');
       input.type = 'file';
@@ -217,6 +289,7 @@
       input.click();
     });
 
+    // Upload an image
     imageUploadButton.addEventListener('click', () => {
       const input = document.createElement('input');
       input.type = 'file';
@@ -236,6 +309,7 @@
       input.click();
     });
 
+    // Update the list of files
     function updateFilesList() {
       filesDiv.innerHTML = '';
       files.forEach((file, index) => {
@@ -254,6 +328,7 @@
       });
     }
 
+    // Open a file
     function openFile(index) {
       const file = files[index];
       if (file.content !== null) {
@@ -266,6 +341,7 @@
       }
     }
 
+    // Update the preview iframe live
     function updatePreview() {
       const htmlContent = files.find(file => file.name.endsWith('.html'))?.content || '';
       const cssContent = files.find(file => file.name.endsWith('.css'))?.content || '';
@@ -286,8 +362,10 @@
       preview.src = URL.createObjectURL(blob);
     }
 
+    // Run files
     document.getElementById('run-files').addEventListener('click', updatePreview);
 
+    // Download all files as a ZIP
     downloadAllButton.addEventListener('click', () => {
       const zip = new JSZip();
       files.forEach(file => {
@@ -303,6 +381,7 @@
       });
     });
 
+    // Resize iframe
     resizeBar.addEventListener('mousedown', () => {
       isResizing = true;
       document.addEventListener('mousemove', handleResize);
@@ -319,19 +398,6 @@
         codeEditor.style.height = `${window.innerHeight - newHeight - 50}px`;
       }
     }
-
-    codeEditor.addEventListener('input', function (e) {
-      const cursorPos = codeEditor.selectionStart;
-      const textBefore = codeEditor.value.substring(0, cursorPos);
-      const lastTag = textBefore.match(/<([^>]+)$/);
-      
-      if (lastTag && lastTag[1] === 'doctype') {
-        codeEditor.value = codeEditor.value.substring(0, cursorPos) + ' html>';
-        codeEditor.setSelectionRange(cursorPos + 6, cursorPos + 6);
-      }
-    });
-
-    updateFilesList();
   </script>
 </body>
 </html>
