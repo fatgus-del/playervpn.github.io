@@ -21,8 +21,7 @@
             overflow: hidden;
             position: relative;
         }
-
-        /* Stronger dimming effect with a darker overlay */
+        
         body::before {
             content: "";
             position: absolute;
@@ -30,14 +29,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Darker overlay (more dimming) */
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1;
         }
 
         .container {
             text-align: center;
             position: relative;
-            z-index: 2; /* Ensure content appears above the overlay */
+            z-index: 2;
         }
 
         h1 {
