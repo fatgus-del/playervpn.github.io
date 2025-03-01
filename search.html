@@ -12,9 +12,9 @@
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: url('logobg.png') center/cover no-repeat, radial-gradient(circle, #4b0082, #1e0035);
             color: white;
             overflow: hidden;
+            transition: background-color 0.3s;
         }
 
         .sidebar {
@@ -31,6 +31,7 @@
             gap: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
             z-index: 11;
+            transition: background 0.3s;
         }
 
         .sidebar a {
@@ -50,9 +51,6 @@
             color: #bb86fc;
         }
 
-        .trophy-button {
-        }
-
         .topbar {
             position: fixed;
             top: 0;
@@ -66,7 +64,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             z-index: 10;
             border-bottom-left-radius: 20px;
-            overflow: hidden;
+            transition: background 0.3s;
         }
 
         .topbar input {
@@ -112,6 +110,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            transition: color 0.3s;
         }
 
         .search-area {
@@ -295,6 +294,49 @@
             cursor: pointer;
         }
 
+        .theme-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 13;
+        }
+
+        .theme-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1a002a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            width: 80%;
+            max-width: 400px;
+            color: white;
+            text-align: center;
+        }
+
+        .theme-modal-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .theme-option {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .theme-option:hover {
+            background: #bb86fc;
+        }
+
         .credit {
             font-size: 14px;
             margin-top: 10px;
@@ -354,7 +396,7 @@
         <a href="#" onclick="loadPage('/active/embed.html?url=https://playervpn.github.io/movies')"><i class="fas fa-tv"></i></a>
         <a href="#" onclick="loadPage('ai.html')"><i class="fas fa-robot"></i></a>
         <a href="#" onclick="openSettingsModal()"><i class="fas fa-cog"></i></a>
-        <a href="#" onclick="loadPage('https://playervpn.github.io/active/embed.html?url=https://playervpn.github.io/shows')"><i class="fas fa-eye"></i></a> <!-- Eye Icon -->
+        <a href="#" onclick="loadPage('https://playervpn.github.io/active/embed.html?url=https://playervpn.github.io/shows')"><i class="fas fa-eye"></i></a>
     </div>
 
     <div class="topbar">
@@ -429,6 +471,17 @@
                 <option value="google">Google</option>
                 <option value="google drive">Google Drive</option>
             </select>
+            <h3>Choose Theme:</h3>
+            <select id="themeSelect" onchange="changeTheme(this.value)">
+                <option value="default">Default</option>
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+                <option value="mocha">Mocha</option>
+                <option value="sun">Sun</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="purple">Purple</option>
+            </select>
         </div>
     </div>
 
@@ -436,12 +489,134 @@
         <div class="settings-modal-content">
             <span class="settings-modal-close" onclick="closeHistory()">×</span>
             <h2>History</h2>
-            <div id="historyList">
-            </div>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <div class="theme-modal">
+        <div class="theme-modal-content">
+            <h2>Select Theme</h2>
+            <div class="theme-option" onclick="changeTheme('dark')">Dark Theme</div>
+            <div class="theme-option" onclick="changeTheme('light')">Light Theme</div>
+            <div class="theme-option" onclick="changeTheme('mocha')">Mocha Theme</div>
+            <div class="theme-option" onclick="changeTheme('sun')">Sun Theme</div>
+            <div class="theme-option" onclick="changeTheme('blue')">Blue Theme</div>
+            <div class="theme-option" onclick="changeTheme('green')">Green Theme</div>
+            <div class="theme-option" onclick="changeTheme('purple')">Purple Theme</div>
+            <div class="theme-option" onclick="restartTab()">Restart Tab</div>
         </div>
     </div>
 
     <script>
+        const twoFingerTouchThreshold = 2;
+        let touchCount = 0;
+
+        window.addEventListener('touchstart', (event) => {
+            touchCount = event.touches.length;
+            if (touchCount >= twoFingerTouchThreshold) {
+                openThemeModal();
+            }
+        });
+
+        window.addEventListener('touchend', () => {
+            touchCount = 0;
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.detail === 2) { // Detect double click for touchpads
+                openThemeModal();
+            }
+        });
+
+        function openThemeModal() {
+            const themeModal = document.querySelector('.theme-modal');
+            themeModal.style.display = 'block';
+        }
+
+        function closeThemeModal() {
+            const themeModal = document.querySelector('.theme-modal');
+            themeModal.style.display = 'none';
+        }
+
+        function changeTheme(theme) {
+            const body = document.body;
+            const sidebar = document.querySelector('.sidebar');
+            const topbar = document.querySelector('.topbar');
+
+            localStorage.setItem('theme', theme);
+
+            switch (theme) {
+                case 'dark':
+                    body.style.backgroundColor = '#1a002a';
+                    sidebar.style.backgroundColor = '#24002d';
+                    topbar.style.backgroundColor = '#24002d';
+                    break;
+                case 'light':
+                    body.style.backgroundColor = '#f0f0f0';
+                    sidebar.style.backgroundColor = '#e0e0e0';
+                    topbar.style.backgroundColor = '#e0e0e0';
+                    break;
+                case 'mocha':
+                    body.style.backgroundColor = '#5c4a46';
+                    sidebar.style.backgroundColor = '#4b3b38';
+                    topbar.style.backgroundColor = '#4b3b38';
+                    break;
+                case 'sun':
+                    body.style.backgroundColor = '#f6d02f';
+                    sidebar.style.backgroundColor = '#e5b800';
+                    topbar.style.backgroundColor = '#e5b800';
+                    break;
+                case 'blue':
+                    body.style.backgroundColor = '#2196F3';
+                    sidebar.style.backgroundColor = '#1976D2';
+                    topbar.style.backgroundColor = '#1976D2';
+                    break;
+                case 'green':
+                    body.style.backgroundColor = '#4CAF50';
+                    sidebar.style.backgroundColor = '#388E3C';
+                    topbar.style.backgroundColor = '#388E3C';
+                    break;
+                case 'purple':
+                    body.style.backgroundColor = '#673AB7';
+                    sidebar.style.backgroundColor = '#5E35B1';
+                    topbar.style.backgroundColor = '#5E35B1';
+                    break;
+                default:
+                    body.style.backgroundColor = '';
+            }
+
+            closeThemeModal();
+            updateThemeStyles(theme);
+        }
+
+        function updateThemeStyles(theme) {
+            const sidebar = document.querySelector('.sidebar');
+            const topbar = document.querySelector('.topbar');
+            const links = document.querySelectorAll('.sidebar a');
+
+            links.forEach(link => {
+                link.style.color = (theme === 'light') ? '#000' : '#fff';
+                link.addEventListener('mouseover', () => {
+                    link.style.color = '#bb86fc';
+                });
+                link.addEventListener('mouseout', () => {
+                    link.style.color = (theme === 'light') ? '#000' : '#fff';
+                });
+            });
+        }
+
+        function restartTab() {
+            window.location.reload();
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'default';
+            changeTheme(savedTheme);
+            document.getElementById('themeSelect').value = savedTheme;
+        }
+
+        loadSavedTheme();
+
         function loadPage(url) {
             const iframe = document.getElementById('searchFrame');
             iframe.src = url;
@@ -610,7 +785,6 @@
                 loadingBar.style.width = '0%';
                 loadingBar.style.transition = 'width 0.2s linear';
             }, 0);
-
         }
 
         function stopLoadingBar() {
