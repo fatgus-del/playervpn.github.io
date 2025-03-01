@@ -14,6 +14,7 @@
             font-family: 'Poppins', sans-serif;
             color: white;
             overflow: hidden;
+            background: url('logobg.png') center/cover no-repeat, radial-gradient(circle, #4b0082, #1e0035);
             transition: background-color 0.3s;
         }
 
@@ -511,6 +512,7 @@
         const twoFingerTouchThreshold = 2;
         let touchCount = 0;
 
+        // Detect touch events
         window.addEventListener('touchstart', (event) => {
             touchCount = event.touches.length;
             if (touchCount >= twoFingerTouchThreshold) {
@@ -522,10 +524,9 @@
             touchCount = 0;
         });
 
-        window.addEventListener('click', (event) => {
-            if (event.detail === 2) { // Detect double click for touchpads
-                openThemeModal();
-            }
+        // Detect mouse double click
+        window.addEventListener('dblclick', () => {
+            openThemeModal();
         });
 
         function openThemeModal() {
