@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORBIT CODING</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 20%;
+      background-color: #252526;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+    .sidebar button {
+      background: none;
+      color: #d4d4d4;
+      border: none;
+      padding: 10px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .sidebar button:hover {
+      background-color: #3a3d41;
+    }
+    .files {
+      margin-top: 20px;
+      flex-grow: 1;
+    }
+    .files div {
+      padding: 5px 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+    .files div:hover {
+      background-color: #3a3d41;
+    }
+    .editor {
+      flex-grow: 1;
+      background-color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+    }
+    #code {
+      flex-grow: 1;
+      background-color: #1e1e1e;
+      border: none;
+      color: #d4d4d4;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      padding: 10px;
+      outline: none;
+      white-space: pre;
+      overflow-wrap: break-word;
+    }
+    .bottom-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      background-color: #252526;
+    }
+    .bottom-bar button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .bottom-bar button:hover {
+      background-color: #005f99;
+    }
+    iframe {
+      width: 100%;
+      height: 50%;
+      border: none;
+    }
+    .resize-bar {
+      cursor: ns-resize;
+      background-color: #333;
+      height: 5px;
+    }
+    .search-bar {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #252526;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+      flex-direction: column;
+      width: 300px;
+    }
+    .search-bar input {
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+    }
+    .search-bar input::placeholder {
+      color: #757575;
+    }
+    .search-bar button {
+      margin-top: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .search-bar button:hover {
+      background-color: #005f99;
+    }
+    .highlight {
+      background-color: #272822;
+      color: #f8f8f2;
+    }
+    .keyword {
+      color: #66d9ef;
+    }
+    .string {
+      color: #e6db74;
+    }
+    .comment {
+      color: #75715e;
+    }
+    .image-preview {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <button id="new-file"><i class="fas fa-file"></i> New File</button>
+    <button id="upload-file"><i class="fas fa-upload"></i> Upload File</button>
+    <button id="upload-image"><i class="fas fa-image"></i> Upload Image</button>
+    <div class="files" id="files">
+      
+    </div>
+    <button id="download-all"><i class="fas fa-download"></i> Download All Files</button>
+  </div>
+
+  <div class="editor">
+    <textarea id="code" placeholder="Write your code here..."></textarea>
+    <div class="resize-bar" id="resize-bar"></div>
+    <iframe id="preview"></iframe>
+    <div class="bottom-bar">
+      <button id="run-files">Run Files</button>
+    </div>
+  </div>
+
+  <div class="search-bar" id="search-bar">
+    <input type="text" id="folder-name" placeholder="Enter folder name...">
+    <button id="create-folder">Create Folder</button>
+  </div>
+
+  <script>
+    const files = [];
+    const filesDiv = document.getElementById('files');
+    const codeEditor = document.getElementById('code');
+    const preview = document.getElementById('preview');
+    const resizeBar = document.getElementById('resize-bar');
+    const searchBar = document.getElementById('search-bar');
+    const folderNameInput = document.getElementById('folder-name');
+    const downloadAllButton = document.getElementById('download-all');
+    const imageUploadButton = document.getElementById('upload-image');
+    let isResizing = false;
+
+    document.getElementById('new-file').addEventListener('click', () => {
+      const fileName = prompt('File name (e.g., index.html, script.js):', 'index.html');
+      if (fileName) {
+        const fileExtension = fileName.split('.').pop().toLowerCase();
+        if (['html', 'js', 'css', 'txt'].includes(fileExtension)) {
+          files.push({ name: fileName, content: '' });
+          updateFilesList();
+        } else {
+          alert('Invalid file extension. Please use .html, .js, .css, or .txt.');
+        }
+      }
+    });
+
+    document.getElementById('upload-file').addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.html,.css,.js,.txt';
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          files.push({ name: file.name, content: reader.result });
+          updateFilesList();
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+
+    imageUploadButton.addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          const imgElement = document.createElement('img');
+          imgElement.src = reader.result;
+          imgElement.classList.add('image-preview');
+          files.push({ name: file.name, content: reader.result });
+          updateFilesList();
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    });
+
+    function updateFilesList() {
+      filesDiv.innerHTML = '';
+      files.forEach((file, index) => {
+        const fileDiv = document.createElement('div');
+        fileDiv.textContent = file.name;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'X';
+        removeButton.onclick = (e) => {
+          e.stopPropagation();
+          files.splice(index, 1);
+          updateFilesList();
+        };
+        fileDiv.appendChild(removeButton);
+        fileDiv.addEventListener('click', () => openFile(index));
+        filesDiv.appendChild(fileDiv);
+      });
+    }
+
+    function openFile(index) {
+      const file = files[index];
+      if (file.content !== null) {
+        codeEditor.value = file.content;
+        codeEditor.oninput = () => {
+          files[index].content = codeEditor.value;
+          updatePreview();
+        };
+        updatePreview();
+      }
+    }
+
+    function updatePreview() {
+      const htmlContent = files.find(file => file.name.endsWith('.html'))?.content || '';
+      const cssContent = files.find(file => file.name.endsWith('.css'))?.content || '';
+      const jsContent = files.find(file => file.name.endsWith('.js'))?.content || '';
+
+      const blob = new Blob([
+        `<html>
+          <head>
+            <style>${cssContent}</style>
+          </head>
+          <body>
+            ${htmlContent}
+            <script>${jsContent}<\/script>
+          </body>
+        </html>`
+      ], { type: 'text/html' });
+
+      preview.src = URL.createObjectURL(blob);
+    }
+
+    document.getElementById('run-files').addEventListener('click', updatePreview);
+
+    downloadAllButton.addEventListener('click', () => {
+      const zip = new JSZip();
+      files.forEach(file => {
+        if (file.content !== null) {
+          zip.file(file.name, file.content);
+        }
+      });
+      zip.generateAsync({ type: 'blob' }).then(content => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'files.zip';
+        link.click();
+      });
+    });
+
+    resizeBar.addEventListener('mousedown', () => {
+      isResizing = true;
+      document.addEventListener('mousemove', handleResize);
+      document.addEventListener('mouseup', () => {
+        isResizing = false;
+        document.removeEventListener('mousemove', handleResize);
+      });
+    });
+
+    function handleResize(e) {
+      if (isResizing) {
+        const newHeight = window.innerHeight - e.clientY;
+        preview.style.height = `${newHeight}px`;
+        codeEditor.style.height = `${window.innerHeight - newHeight - 50}px`;
+      }
+    }
+
+    codeEditor.addEventListener('input', function (e) {
+      const cursorPos = codeEditor.selectionStart;
+      const textBefore = codeEditor.value.substring(0, cursorPos);
+      const lastTag = textBefore.match(/<([^>]+)$/);
+      
+      if (lastTag && lastTag[1] === 'doctype') {
+        codeEditor.value = codeEditor.value.substring(0, cursorPos) + ' html>';
+        codeEditor.setSelectionRange(cursorPos + 6, cursorPos + 6);
+      }
+    });
+
+    updateFilesList();
+  </script>
+</body>
+</html>
