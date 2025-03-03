@@ -1,126 +1,68 @@
-<link rel="icon" type="image/x-icon" href="https://playervpn.github.io/playervpn-game/PVPNdownload.png">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found</title>
+    <title>404!</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bobby+Jones+Soft&display=swap');
-
         body {
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: radial-gradient(circle, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #fff;
-            font-family: 'Bobby Jones Soft', cursive;
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            overflow: hidden;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
             text-align: center;
-            position: relative;
         }
-
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: floatParticle 10s infinite ease-in-out;
-        }
-
-        @keyframes floatParticle {
-            0% {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            50% {
-                transform: translate(50px, -100px);
-                opacity: 0.6;
-            }
-            100% {
-                transform: translate(-30px, -200px);
-                opacity: 0;
-            }
-        }
-
-        .container {
-            text-align: center;
-            z-index: 1;
-        }
-
-        img {
-            width: 500px;
-            height: auto;
-            margin: 0 auto;
+        
+        .dino {
+            font-size: 100px;
+            line-height: 1;
         }
 
         h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin: 16px 0 8px 0;
         }
 
         p {
-            font-size: 1.5rem;
-            color: #fff;
-            text-shadow: 0 0 5px #fff;
-            margin-bottom: 30px;
+            font-size: 20px;
+            margin: 0;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #ff0066, #ffcc00);
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            box-shadow: 0 0 10px #ff0066, 0 0 20px #ffcc00;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .instructions {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #666;
         }
 
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px #ff0066, 0 0 40px #ffcc00;
+        .go-home {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: green;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .go-home:hover {
+            background-color: darkgreen;
         }
     </style>
 </head>
 <body>
-    <div class="particles">
-        <!-- Generate 50 floating particles -->
-        <script>
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = 5 + Math.random() * 10 + 's';
-                document.body.appendChild(particle);
-            }
-        </script>
-    </div>
-    <div class="container">
-        <img src="https://i.ibb.co/gF9d1Hj/4-1.png" alt="404 Image">
-        <h1>You were lost on the moon</h1>
-        <p>It seems like you've wandered off course. Let's get you back home.</p>
-        <a href="index.html" class="btn">Go Home</a>
+    <div>
+        <div class="dino">🐢</div>
+        <h1>404 NOT FOUND</h1>
+        <p>Either the page doesn't exist or the page your trying to enter is down</p>
+         <h4>If this happens when searching our proxy, please refresh this page and try again</h4>
+        <button class="go-home" onclick="window.location.href='playervpn.github.io/search.html'">Go Home</button>
+        <div class="instructions"></div>
     </div>
 </body>
 </html>
