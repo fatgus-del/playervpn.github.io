@@ -638,12 +638,18 @@
 
         function search(query) {
             const iframe = document.getElementById('searchFrame');
+            const blockedSites = ["pornhub.com", "xvideos.com", "redtube.com", "youjizz.com", "xhamster.com"]; // Add more URLs as necessary
 
-            if (/^(https?:\/\/)?[\w.-]+\.[a-z]{2,6}([\/\w .-]*)*\/?$/i.test(query)) {
-                const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
-                iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
+            // Check if the query includes any blocked sites
+            if (blockedSites.some(site => query.includes(site))) {
+                iframe.src = "blocked.html"; // Load the blocked page
             } else {
-                iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+                if (/^(https?:\/\/)?[\w.-]+\.[a-z]{2,6}([\/\w .-]*)*\/?$/i.test(query)) {
+                    const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
+                    iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
+                } else {
+                    iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+                }
             }
 
             iframe.classList.add('active');
