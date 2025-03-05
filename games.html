@@ -301,8 +301,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 .game-item {
-    background-color: #111; /* Darker black background */
-    border: 3px solid #2b7fcb; /* Red border */
+    background-color: #111; 
+    border: 3px solid #2b7fcb; 
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
@@ -312,14 +312,14 @@
 
 .game-item:hover {
     transform: scale(1.05);
-    box-shadow: 0px 8px 20px rgba(43, 127, 203); /* Red glow on hover */
+    box-shadow: 0px 8px 20px rgba(43, 127, 203); 
 }
 
 .game-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-bottom: 2px solid #358edf; /* Red bottom border */
+    border-bottom: 2px solid #358edf; 
     transition: filter 0.3s;
 }
 
@@ -332,19 +332,19 @@
 }
 
 .game-item:hover h2 {
-    color: #358edf; /* Red text on hover */
+    color: #358edf; 
     transform: scale(1.1);
 }
 
 .game-item p {
-    color: #b3b3b3; /* Light gray text */
+    color: #b3b3b3; 
     font-size: 0.9rem;
     margin-bottom: 15px;
     font-family: 'Poppins', sans-serif;
 }
 
 .play-now-button {
-    background-color: #358edf; /* Red button */
+    background-color: #358edf; 
     color: white;
     text-decoration: none;
     padding: 8px 15px;
@@ -355,7 +355,7 @@
 }
 
 .play-now-button:hover {
-    background-color: #cc0000; /* Darker red on hover */
+    background-color: #cc0000; 
 }
 
         @keyframes fadeIn {
@@ -619,7 +619,7 @@
         <input type="text" id="gameSearchInput" placeholder="Search..." />
     </div>
     <div class="games-container" id="games-container">
-        <div class="game-item reveal" onclick="openGame('requestgame.html', 'requestgame.html')">
+        <div class="game-item reveal" onclick="openGame('requestgame', 'requestgame')">
             <img src="requestgame.png" alt="Game;request">
             <h2>Request.</h2>
             <p>Request a GAME!</p>
