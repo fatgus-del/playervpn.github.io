@@ -1,0 +1,33 @@
+body {
+background-color: black;
+}
+
+.color-changing-text {
+color: white;
+font-family: 'Poppins', sans-serif;
+text-align: center;
+margin-top: 10vh;
+font-size: 10vh;
+}
+
+.color-changing-text span {
+animation: colorChange 2s infinite;
+transition: color 0s ease;
+text-align: center;
+}
+
+@keyframes colorChange {
+0% { color: rgb(203, 0, 0); }
+25% { color: rgb(120, 120, 0); }
+50% { color: rgb(90, 255, 90); }
+75% { color: rgb(85, 255, 255); }
+100% { color: red; }
+}
+
+.subtext {
+color: red;
+font-family: poppins;
+font-weight: bold;
+text-align: center;
+font-size: 3vh;
+}
