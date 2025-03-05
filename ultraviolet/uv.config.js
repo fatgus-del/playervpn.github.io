@@ -1,6 +1,6 @@
 self.__uv$config = {
     prefix: '/uv/',
-    bare:'https://ly.rchamberlinwoodworking.com/bare/',
+    bare:'https://right.q-station.net/bare/',
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
     handler: '/ultraviolet/uv.handler.js',
