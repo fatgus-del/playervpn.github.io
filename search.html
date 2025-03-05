@@ -7,7 +7,6 @@
     <title>Orbit Proxy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* (CSS remains unchanged here) */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
         body {
@@ -210,7 +209,6 @@
             display: block;
         }
 
-        /* Additional styles remain unchanged */
         .particles {
             position: fixed;
             top: 0;
@@ -621,19 +619,13 @@
 
         function loadPage(url) {
             const iframe = document.getElementById('searchFrame');
-            iframe.src = "loading.html"; // Show loading page first
+            iframe.src = url;
             iframe.classList.add('active');
             startLoadingBar();
-
-            // Load the actual page after 5 seconds
-            setTimeout(() => {
-                iframe.src = url;
-                addToHistory(url); // Add the searched URL to the history, not loading.html
-            }, 5000); // Delay for 5 seconds
-
             iframe.onload = function() {
                 stopLoadingBar();
             };
+            addToHistory(url);
         }
 
         function performSearch() {
@@ -658,13 +650,18 @@
             } else {
                 if (/^(https?:\/\/)?[\w.-]+\.[a-z]{2,6}([\/\w .-]*)*\/?$/i.test(query)) {
                     const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
-                    loadPage(`https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`);
+                    iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
                 } else {
-                    loadPage(`https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`);
+                    iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
                 }
             }
 
+            iframe.classList.add('active');
             startLoadingBar();
+            iframe.onload = function() {
+                stopLoadingBar();
+            };
+            addToHistory(iframe.src);
         }
 
         function openSettingsModal() {
