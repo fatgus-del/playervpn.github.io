@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Loading Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .loading-container {
+            perspective: 800px;
+        }
+
+        .cube {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 2s infinite linear;
+        }
+
+        .cube::before, .cube::after,
+        .cube div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .cube::before {
+            transform: translateZ(50px);
+        }
+
+        .cube::after {
+            transform: rotateY(90deg) translateZ(50px);
+        }
+
+        .cube div:nth-child(1) {
+            transform: rotateY(180deg) translateZ(50px);
+        }
+
+        .cube div:nth-child(2) {
+            transform: rotateX(90deg) translateZ(50px);
+        }
+
+        .cube div:nth-child(3) {
+            transform: rotateX(-90deg) translateZ(50px);
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotateX(0) rotateY(0);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .loading-dots {
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(3, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% {
+                content: "."; /* 1 dot */
+            }
+            40% {
+                content: ".."; /* 2 dots */
+            }
+            60% {
+                content: "..."; /* 3 dots */
+            }
+            80% {
+                content: ".."; /* 2 dots */
+            }
+            100% {
+                content: "."; /* 1 dot */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="cube">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="loading-text">
+        Loading <span class="loading-dots"></span>
+    </div>
+    <script>
+        console.log("Loading...");
+    </script>
+</body>
+</html>
