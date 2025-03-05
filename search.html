@@ -397,7 +397,7 @@
         <a href="#" onclick="loadPage('/active/embed.html?url=https://playervpn.github.io/movies')"><i class="fas fa-tv"></i></a>
         <a href="#" onclick="loadPage('ai.html')"><i class="fas fa-robot"></i></a>
         <a href="#" onclick="openSettingsModal()"><i class="fas fa-cog"></i></a>
-        <a href="#" onclick="loadPage('https://playervpn.github.io/active/embed.html?url=https://playervpn.github.io/shows')"><i class="fas fa-eye"></i></a>
+        <a href="#" onclick="loadPage('/active/embed.html?url=https://playervpn.github.io/shows')"><i class="fas fa-eye"></i></a>
         <!-- New Information Icon Added Below -->
         <a href="#" onclick="loadPage('I.html')"><i class="fas fa-info-circle"></i></a>
         <!-- Chat Icon Added Below -->
@@ -430,27 +430,27 @@
         </div>
 
         <div class="grid">
-            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Cgmoelg.aoo%2F" target="_blank">
+            <a href="/active/go/hvtrs8%2F-wuw%2Cgmoelg.aoo%2F" target="_blank">
                 <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="Google">
                 Google
             </a>
-            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Cymuvu%60e%2Ccmm-" target="_blank">
+            <a href="/active/go/hvtrs8%2F-wuw%2Cymuvu%60e%2Ccmm-" target="_blank">
                 <img src="youtube.png" alt="YouTube">
                 YouTube
             </a>
-            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-orel.qpmtkf%7B.aoo%2F" target="_blank">
+            <a href="/active/go/hvtrs8%2F-orel.qpmtkf%7B.aoo%2F" target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png" alt="Spotify">
                 Spotify
             </a>
-            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-dksaopd%2Ccmm-" target="_blank">
+            <a href="/active/go/hvtrs8%2F-dksaopd%2Ccmm-" target="_blank">
                 <img src="https://static-00.iconduck.com/assets.00/discord-icon-2048x2048-nnt62s2u.png" alt="Discord">
                 Discord
             </a>
-            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-gktju%60.aoo%2F" target="_blank">
+            <a href="/active/go/hvtrs8%2F-gktju%60.aoo%2F" target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png" alt="GitHub">
                 GitHub
             </a>
-            <a href="https://playervpn.github.io/active/go/hvtrs8%2F-wuw%2Ctuivcj.vv-" target="_blank">
+            <a href="/active/go/hvtrs8%2F-wuw%2Ctuivcj.vv-" target="_blank">
                 <img src="twitch.png" alt="Twitch">
                 Twitch
             </a>
@@ -650,9 +650,9 @@
             } else {
                 if (/^(https?:\/\/)?[\w.-]+\.[a-z]{2,6}([\/\w .-]*)*\/?$/i.test(query)) {
                     const urlWithProtocol = query.startsWith('http') ? query : `https://${query}`;
-                    iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
+                    iframe.src = `/active/embed.html?url=${encodeURIComponent(urlWithProtocol)}`;
                 } else {
-                    iframe.src = `https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+                    iframe.src = `/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
                 }
             }
 
