@@ -2,7 +2,7 @@
 const CACHE_NAME = 'orbit-cache-v1';  // You can change the version number to force updates
 const ASSETS_TO_CACHE = [
     '/',
-    '/index.html',                   // Your main HTML file
+    '/games.html',                   // Your main HTML file
     '/manifest.json',                 // Your web app manifest file, if you have one
     '/style.css',                     // Your CSS file, if you have one
     '/script.js',                     // Your main script file
