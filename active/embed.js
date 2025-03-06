@@ -20,5 +20,5 @@ registerSW()
     window.open(__uv$config.prefix + __uv$config.encodeUrl(destination), "_self");
   })
   .catch((err) => {
-    alert(`Your boat crashed!\nAn error occurred:\n${err}`);
+    alert(`Your boat hit the wall!\nYou died:\n${err}`);
   });
