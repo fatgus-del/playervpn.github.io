@@ -38,8 +38,6 @@
             text-align: center;
             position: relative;
             z-index: 2;
-            opacity: 0; /* Hide content initially */
-            transition: opacity 1s ease-in-out;
         }
 
         h1 {
@@ -118,28 +116,10 @@
             animation: fadeIn 1s ease;
         }
 
-        /* Video styles */
-        .video-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 3;
-        }
-        video {
-            width: 100%;
-            height: auto;
-        }
     </style>
 </head>
 <body>
-    <div id="video-container" class="video-container">
-        <video id="trailer" autoplay muted>
-            <source src="trailer.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div class="container" id="main-content">
+    <div class="container">
         <h1>Orbit. <span style="font-size: 1rem;">v1.2.4</span></h1>
         <p class="subtitle">Select your destination</p>
         <div class="icons">
@@ -167,29 +147,5 @@
         </div>
         <a href="https://playervpn.github.io" class="link">playervpn.github.io</a>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const videoContainer = document.getElementById('video-container');
-            const mainContent = document.getElementById('main-content');
-            const trailer = document.getElementById('trailer');
-
-            // Function to handle the video ending
-            function handleVideoEnd() {
-                videoContainer.style.display = 'none';
-                mainContent.style.opacity = 1;
-            }
-
-            // Check local storage
-            if (!localStorage.getItem('videoPlayed')) {
-                trailer.addEventListener('ended', handleVideoEnd);
-                setTimeout(handleVideoEnd, 11000);
-                localStorage.setItem('videoPlayed', 'true');
-            } else {
-                videoContainer.style.display = 'none';
-                mainContent.style.opacity = 1;
-            }
-        });
-    </script>
 </body>
 </html>
