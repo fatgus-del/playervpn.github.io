@@ -1,4 +1,11 @@
 {
+  "name": "GeForce Now",
+  "short_name": "GFN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "description": "Play games using GeForce Now.",
   "icons": [
     {
       "src": "geforce.png",
