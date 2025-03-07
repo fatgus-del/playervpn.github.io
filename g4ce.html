@@ -32,12 +32,25 @@
         #message a {
             color: hsl(289, 100%, 50%);
             text-decoration: underline;
-
         }
         #message p {
             color: white;
             text-align: center;
             font-size: 1.5em;
+        }
+        #download-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: hsl(289, 100%, 50%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #download-btn:hover {
+            background-color: hsl(289, 80%, 50%);
         }
     </style>
 </head>
@@ -46,6 +59,9 @@
         <img src="lvlogo.png" alt="LupineVault">
         <img src="froggies.gif" alt="Froggie">
         <p>Thanks for all the support and setting this up LupineVault (RWH) & Froggies Arcade!! Check them out here: <a href="https://lupinevault.com/info/index.html">LV Partner's page</a>.</p>
+        <button id="download-btn" onclick="window.open('https://play.geforcenow.com/download/Chromebook', '_blank')">
+            Download GeForce Now for Chromebook
+        </button>
     </div>
     <iframe src="/active/embed.html?url=https://play.geforcenow.com/"></iframe>
 
