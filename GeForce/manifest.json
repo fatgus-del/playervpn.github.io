@@ -1,7 +1,7 @@
 {
   "name": "GeForce Now",
   "short_name": "GFN",
-  "start_url": "/",
+  "start_url": "https://playervpn.github.io/GeForce/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
