@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #downloadButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #downloadButton:hover {
+            background-color: #45a049; /* Darken on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Web Page Content</h1>
+    <p>This is an example of how to create a download feature on your webpage. Click the button below to download this page as an HTML file.</p>
+    
+    <button id="downloadButton">Download Page</button>
+    
+    <script>
+        document.getElementById("downloadButton").addEventListener("click", function() {
+            // Create a Blob from the HTML content
+            var htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Your Web Page</title>
+                </head>
+                <body>
+                    <h1>Your Web Page Content</h1>
+                    <p>This is an example of how to create a download feature on your webpage. Click the button below to download this page as an HTML file.</p>
+                </body>
+                </html>
+            `;
+            
+            // Create a new Blob object using the text
+            var blob = new Blob([htmlContent], { type: 'text/html' });
+            var url = URL.createObjectURL(blob);
+            
+            // Create a link element for download
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = "GeForce.html"; // File name for the downloaded file
+            
+            // Append the link to the body
+            document.body.appendChild(a);
+            a.click(); // Simulate a click to trigger the download
+            document.body.removeChild(a); // Cleanup the DOM
+            
+            // Release the URL object
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
