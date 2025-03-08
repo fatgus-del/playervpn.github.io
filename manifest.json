@@ -1,7 +1,7 @@
 {
   "name": "Geforce Now.",
   "short_name": "Orbit | Geforce Now.",
-  "start_url": "https://playervpn.github.io/GeForce.html/",
+  "start_url": "https://playervpn.github.io/GeForce",
   "display": "standalone",
   "background_color": "#1e1e2f",
   "theme_color": "#1e90ff",
