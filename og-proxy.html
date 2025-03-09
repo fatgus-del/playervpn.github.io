@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #d3d3d3;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            border-radius: 20px;
+            background-color: #333;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #d3d3d3;
+            font-size: 16px;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+        }
+
+        .search-bar .fa-search {
+            color: #d3d3d3;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .icon {
+            color: #d3d3d3;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .iframe {
+            width: 100%;
+            height: calc(100vh - 60px);
+            background-color: #1a1a1a;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d3d3d3;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        footer {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+        }
+
+        .bottom-bar {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .time-bar {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            color: white;
+        }
+
+        .time-bar span {
+            margin: 0 5px;
+        }
+    </style>
+    <title>Search Page</title>
+</head>
+
+<body>
+    <header>
+        <div class="search-bar">
+            <i class="fa fa-search"></i>
+            <input type="text" id="search-input" placeholder="search Google or type a URL" />
+        </div>
+        <i class="fa fa-arrow-left icon" onclick="goBack()"></i>
+        <i class="fa fa-sync-alt icon" onclick="refreshIframe()"></i>
+    </header>
+
+    <iframe id="result-frame" class="iframe" title="Result Frame" src="about:blank">
+        Search to start session!
+    </iframe>
+
+    <footer>
+        <div class="bottom-bar">
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" id="bottom-search-input" placeholder="search Google or type a URL" />
+            </div>
+            <div class="time-bar">
+                <span id="current-time">Loading time...</span>
+                <span>|</span>
+                <span id="current-date">Loading date...</span>
+                <span>|</span>
+                <span id="battery-percentage">Battery: 100%</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const bottomSearchInput = document.getElementById('bottom-search-input');
+        const resultFrame = document.getElementById('result-frame');
+        
+        let timerInterval;
+        let duration = 60 * 60;
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(function () {
+                duration--;
+                if (duration <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Your session time is up! Refreshing the page.");
+                    location.reload();
+                }
+            }, 1000);
+        }
+
+        function performSearch(inputElement) {
+            const query = inputElement.value.trim();
+            let url;
+
+            if (!query) {
+                resultFrame.src = "about:blank";
+                resultFrame.contentDocument.body.innerHTML = `<div><i class="fa fa-search"></i><br>Search to start session!</div>`;
+                return;
+            }
+
+            if (/^(http[s]?:\/\/).+/.test(query)) {
+
+                url = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(query)}`;
+            } else if (/^(www\.).+/.test(query) || /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/.test(query)) {
+
+                url = `https://playervpn.github.io/active/embed.html?url=https://${encodeURIComponent(query)}`;
+            } else {
+
+                url = `https://playervpn.github.io/active/embed.html?url=https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+            }
+
+            resultFrame.src = url;
+
+            if (duration === 3600) {
+                startTimer();
+            }
+        }
+
+        searchInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                performSearch(searchInput);
+            }
+        });
+
+        bottomSearchInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                performSearch(bottomSearchInput);
+            }
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function refreshIframe() {
+            resultFrame.src = resultFrame.src;
+        }
+
+        function updateTimeAndBattery() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const dateString = now.toLocaleDateString();
+
+            document.getElementById('current-time').innerText = timeString;
+            document.getElementById('current-date').innerText = dateString;
+
+            navigator.getBattery().then(function (battery) {
+                document.getElementById('battery-percentage').innerText = `Battery: ${Math.round(battery.level * 100)}%`;
+            });
+        }
+
+        setInterval(updateTimeAndBattery, 60000);
+        updateTimeAndBattery();
+    </script>
+</body>
+
+</html>
