@@ -1,16 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortnite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
+            position: relative; /* Added for positioning the button */
         }
         iframe {
             width: 100%;
@@ -33,11 +34,32 @@
         #message a {
             color: hsl(289, 100%, 50%);
             text-decoration: underline;
-
         }
         #message p {
             color: white;
             text-align: center;
+            font-size: 1.5em;
+        }
+        #restart-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #restart-button:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+        #restart-button i {
+            color: hsl(289, 100%, 50%);
             font-size: 1.5em;
         }
     </style>
@@ -49,6 +71,10 @@
         <p>Thanks for all the support and setting this up LupineVault (RWH) & Froggies Arcade!! Check them out here: <a href="https://lupinevault.com/info/index.html">LV Partner's page</a>.</p>
     </div>
     <iframe src="/active/go/hvtrs8%2F-pna%7B.eedopcgnmw%2Ccmm-gcmgs%3Dgcmg-kd%3F44bda%6004-f844%2F445f-%3Be76%2F2f9g47cfeg0c%26nalg%3Fel_WS%24aqsgt%2Fif%3D21%5D7644f78f-2d12%2F46f2-%604f0%2Fcdea563c5423"></iframe>
+
+    <button id="restart-button" onclick="location.reload();">
+        <i class="fas fa-redo-alt"></i>
+    </button>
 
     <script>
         setTimeout(() => {
