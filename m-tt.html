@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile View of TikTok</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0; /* Remove default margins */
+        }
+
+        .phone {
+            width: 375px; /* Typical width for a mobile phone */
+            height: 667px; /* Typical height for a mobile phone */
+            border-radius: 36px; /* Rounded corners */
+            border: 16px solid #000; /* Border to simulate phone edges */
+            position: relative;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide the overflow of the iframe */
+            border-radius: 36px; /* Matches outer phone border radius */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* No border for the iframe */
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="screen">
+            <iframe src="https://playervpn.github.io/active/embed.html?url=https://tiktok.com" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</body>
+</html>
