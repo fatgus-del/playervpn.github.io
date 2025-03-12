@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nvidia Login Verification</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap">
+    <style>
+        body {
+            font-family: 'SF Pro Text', Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background-color: #1e1e2d;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            border: 2px solid #7f00ff;
+        }
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #7f00ff;
+        }
+        input[type="text"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #4d4d73;
+            border-radius: 8px;
+            background-color: #2f2f48;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #7f00ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #5e00b3;
+        }
+        .iframe-container {
+            display: none;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 400px;
+            width: 100%;
+            background-color: #1e1e2d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nvidia Login Verification</h1>
+        <input type="text" id="urlInput" placeholder="Enter URL">
+        <input type="submit" id="verifyButton" value="Verify Login">
+        <iframe class="iframe-container" id="verificationIframe"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('verifyButton').onclick = function() {
+            const url = document.getElementById('urlInput').value;
+            const iframe = document.getElementById('verificationIframe');
+
+            if (url) {
+                iframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(url)}`;
+                iframe.style.display = 'block';
+            } else {
+                alert('Please enter a valid URL.');
+            }
+        };
+    </script>
+</body>
+</html>
