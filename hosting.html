@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Git Provider - CreateYourOwn.space</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #repo-creation, #repo-search {
+            margin: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            margin: 5px 0;
+        }
+
+        #repo-details {
+            margin: 20px;
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #repo-results a {
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        #repo-results a:hover {
+            text-decoration: underline;
+        }
+
+        #repo-info img {
+            max-width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to CreateYourOwn.space</h1>
+        <button id="googleSignIn">Sign In with Google</button>
+        <button id="googleSignOut" style="display:none;">Sign Out</button>
+        <div id="user-info"></div>
+    </header>
+
+    <section id="repo-creation">
+        <h2>Create a New Repo</h2>
+        <input type="text" id="repo-name" placeholder="Enter repo name">
+        <button id="create-repo">Create Repository</button>
+    </section>
+
+    <section id="repo-search">
+        <h2>Search Repos</h2>
+        <input type="text" id="search-repo" placeholder="Search Repositories">
+        <div id="repo-results"></div>
+    </section>
+
+    <section id="repo-details">
+        <h2>Repository Details</h2>
+        <div id="repo-info"></div>
+        <div id="repo-files"></div>
+    </section>
+
+    <script type="module">
+        // Firebase configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHzW9zVRMkhZakRs5reLimI0NPtLejc4Q",
+            authDomain: "login-7afe1.firebaseapp.com",
+            projectId: "login-7afe1",
+            storageBucket: "login-7afe1.appspot.com",
+            messagingSenderId: "1001689689419",
+            appId: "1:1001689689419:web:8fae6de5d31f027a4e8cce",
+            measurementId: "G-BF1H1JQLX8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Handle Google Sign-In
+        document.getElementById('googleSignIn').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+                    document.getElementById('user-info').innerHTML = `
+                        <p>Welcome, ${user.displayName}!</p>
+                        <img src="${user.photoURL}" alt="Profile Picture" width="50">
+                        <p>Email: ${user.email}</p>
+                    `;
+                    document.getElementById('googleSignIn').style.display = 'none';
+                    document.getElementById('googleSignOut').style.display = 'inline';
+                })
+                .catch((error) => {
+                    console.error("Error signing in: ", error);
+                    alert("Error: " + error.message);
+                });
+        });
+
+        // Handle Google Sign-Out
+        document.getElementById('googleSignOut').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                document.getElementById('user-info').innerHTML = '';
+                document.getElementById('googleSignIn').style.display = 'inline';
+                document.getElementById('googleSignOut').style.display = 'none';
+            }).catch((error) => {
+                console.error("Error signing out: ", error);
+            });
+        });
+
+        // Listen for authentication state changes
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('user-info').innerHTML = `
+                    <p>Welcome, ${user.displayName}!</p>
+                    <img src="${user.photoURL}" alt="Profile Picture" width="50">
+                    <p>Email: ${user.email}</p>
+                `;
+                document.getElementById('googleSignIn').style.display = 'none';
+                document.getElementById('googleSignOut').style.display = 'inline';
+            } else {
+                document.getElementById('user-info').innerHTML = '';
+                document.getElementById('googleSignIn').style.display = 'inline';
+                document.getElementById('googleSignOut').style.display = 'none';
+            }
+        });
+
+        // Create a new repo
+        document.getElementById('create-repo').addEventListener('click', () => {
+            const repoName = document.getElementById('repo-name').value;
+            if (repoName) {
+                const user = auth.currentUser;
+                if (user) {
+                    const repoRef = doc(db, "repos", repoName);
+                    setDoc(repoRef, {
+                        owner: user.uid,
+                        name: repoName,
+                        files: []
+                    }).then(() => {
+                        alert('Repository created!');
+                    }).catch((error) => {
+                        console.error("Error creating repository: ", error);
+                        alert("Error: " + error.message);
+                    });
+                }
+            }
+        });
+      
+        document.getElementById('search-repo').addEventListener('input', async (event) => {
+            const searchQuery = event.target.value;
+            const q = query(collection(db, "repos"), where("name", "==", searchQuery));
+            const querySnapshot = await getDocs(q);
+            const results = document.getElementById('repo-results');
+            results.innerHTML = "";
+            querySnapshot.forEach((doc) => {
+                const repoName = doc.data().name;
+                const repoLink = document.createElement('a');
+                repoLink.href = `http://${repoName}.createyourown.space`;
+                repoLink.innerText = repoName;
+                results.appendChild(repoLink);
+            });
+        });
+    </script>
+</body>
+</html>
